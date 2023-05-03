@@ -1,28 +1,29 @@
-const express = require("express")
+const express = require("express");
 const bodyParser = require("body-parser");
-const app = express()
-const mongoose = require("mongoose")
-const dotenv = require("dotenv")
-const userRoute = require("./routes/user")
-const authRoute = require("./routes/auth")
-const productRoute = require("./routes/product")
-const cartRoute = require("./routes/cart")
-const orderRoute = require("./routes/order")
-const stripeRoute = require("./routes/stripe")
-const contactRoute = require("./routes/contact")
-const cors = require("cors")
-const path = require('path')
+const app = express();
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const userRoute = require("./routes/user");
+const authRoute = require("./routes/auth");
+const productRoute = require("./routes/product");
+const cartRoute = require("./routes/cart");
+const orderRoute = require("./routes/order");
+const stripeRoute = require("./routes/stripe");
+const contactRoute = require("./routes/contact");
+const cors = require("cors");
+const path = require("path");
 
-dotenv.config({ path: './config.env' })
-app.use(cors({ origin: ["http://localhost:3000"], credentials: true }));
+dotenv.config({ path: "./config.env" });
+app.use(cors());
 
-mongoose.connect(process.env.MONGO_URL)
-    .then( () => {
-        console.log('Connected to the database!')
-    })
-    .catch((err) => {
-        console.error(`Error connecting to the database. \n${err}`);
-    })
+mongoose
+  .connect(process.env.MONGO_URL)
+  .then(() => {
+    console.log("Connected to the database!");
+  })
+  .catch((err) => {
+    console.error(`Error connecting to the database. \n${err}`);
+  });
 
 app.use(bodyParser.json());
 app.use("/api/auth", authRoute);
@@ -43,6 +44,6 @@ app.get("*", function (_, res) {
   );
 });
 
-app.listen(process.env.PORT || 5000, ()=>{
-    console.log('server is ok');
-})
+app.listen(process.env.PORT || 5000, () => {
+  console.log("server is ok");
+});
